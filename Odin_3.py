@@ -28,6 +28,9 @@ DEFAULT_PROMPT = "what is a mole?"
 DEFAULT_TEMP = 0.7
 DEFAULT_STREAMING = True
 
+MIN_TEMP = 0
+MAX_TEMP = 1
+
 model_str = DEFAULT_MODEL
 system_str = DEFAULT_SYSTEM_STR
 prompt_str = DEFAULT_PROMPT
@@ -55,10 +58,10 @@ while True:
 while True:
     try:
         temp_flt = float(input(f"Temperature \"{temp_flt}\": ").strip() or temp_flt)
-        if 0 <= temp_flt <= 1:
+        if MIN_TEMP <= temp_flt <= MAX_TEMP:
             break
         else:
-            print(Fore.RED + "Temperature must be between 0 and 1. Please try again.")
+            print(Fore.RED + f"Temperature must be between {MIN_TEMP} and {MAX_TEMP}. Please try again.")
     except ValueError:
         print(Fore.RED + "Invalid input. Please enter a number between 0 and 1.")
 
