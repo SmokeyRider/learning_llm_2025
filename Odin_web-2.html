@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Chat Agent</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .chat-history {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+        }
+        .chat-message.user {
+            color: blue;
+        }
+        .chat-message.assistant {
+            color: green;
+        }
+        .error-message {
+            color: red;
+            background-color: #ffecec;
+            border: 1px solid red;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Chat Agent</h1>
+        <div class="chat-history" id="chat-history"></div>
+        <form id="chat-form">
+            <label for="model">Model:</label>
+            <select id="model" name="model"></select>
+            <br><br>
+            <label for="prompt">Prompt:</label>
+            <input type="text" id="prompt" name="prompt" value="What is a mole?">
+            <br><br>
+            <button type="submit">Send</button>
+        </form>
+        <div id="error-container" class="error-message" style="display: none;"></div>
+    </div>
+
+    <script>
+        // Fetch available models from the server
+        fetch('/models')
+            .then(response => response.json())
+            .then(data => {
+                const modelSelect = document.getElementById('model');
+                data.models.forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model;
+                    option.text = model;
+                    modelSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                const errorContainer = document.getElementById('error-container');
+                errorContainer.style.display = 'block';
+                errorContainer.innerText = `An error occurred fetching models: ${error.message}`;
+            });
+
+        document.getElementById('chat-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const model = document.getElementById('model').value;
+            const prompt = document.getElementById('prompt').value;
+            const chatHistory = document.getElementById('chat-history');
+            const errorContainer = document.getElementById('error-container');
+
+            // Clear previous error message
+            errorContainer.style.display = 'none';
+            errorContainer.innerText = '';
+
+            // Display user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chat-message user';
+            userMessage.innerText = `You: ${prompt}`;
+            chatHistory.appendChild(userMessage);
+
+            // Simulate AI response (replace this with actual API call)
+            try {
+                // Simulate a delay for the AI response
+                setTimeout(() => {
+                    const assistantMessage = document.createElement('div');
+                    assistantMessage.className = 'chat-message assistant';
+                    assistantMessage.innerText = `Assistant: This is a simulated response for model ${model} with prompt "${prompt}".`;
+                    chatHistory.appendChild(assistantMessage);
+                    chatHistory.scrollTop = chatHistory.scrollHeight;
+                }, 1000);
+            } catch (e) {
+                errorContainer.style.display = 'block';
+                errorContainer.innerText = `An error occurred: ${e.message}`;
+            }
+
+            // Clear the prompt input
+            document.getElementById('prompt').value = '';
+        });
+    </script>
+</body>
+</html>

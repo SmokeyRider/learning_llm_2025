@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Odin's Chat Assistant</title>
+</head>
+<body>
+    <h1>Odin's Chat Assistant</h1>
+    <form id="chat-form">
+        <label for="model">Model:</label>
+        <select id="model" name="model">
+            {% for model in models %}
+                <option value="{{ model }}">{{ model }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="prompt">Prompt:</label>
+        <input type="text" id="prompt" name="prompt">
+        <button type="submit">Send</button>
+    </form>
+    <div id="chat-history"></div>
+
+    <script>
+        // Add an event listener to the form with id 'chat-form'
+        document.getElementById('chat-form').addEventListener('submit', function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+            
+            // Get the value of the input field with id 'prompt'
+            const prompt = document.getElementById('prompt').value;
+            
+            // Send a POST request to the '/chat' endpoint with the prompt as form data
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'prompt': prompt
+                })
+            })
+            // Parse the JSON response from the server
+            .then(response => response.json())
+            .then(data => {
+                // Get the chat history div with id 'chat-history'
+                const chatHistory = document.getElementById('chat-history');
+                
+                // Append the user's prompt to the chat history
+                chatHistory.innerHTML += `<p><strong>You:</strong> ${prompt}</p>`;
+                
+                // Append the assistant's response to the chat history
+                chatHistory.innerHTML += `<p><strong>Assistant:</strong> ${data.response}</p>`;
+                
+                // Clear the input field
+                document.getElementById('prompt').value = '';
+            });
+        });
+    </script>
+</body>
+</html>
