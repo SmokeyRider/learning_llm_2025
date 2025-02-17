@@ -1,13 +1,10 @@
-from colorama import init, Fore, Style
 from ollama import list as ollama_list, chat as ollama_chat  # Import specific functions
-
-# Initialize colorama
-init(autoreset=True)
+from colorama import init, Fore, Style
 
 # Set default values
 DEFAULT_MODEL = "llama3.2"
 DEFAULT_SYSTEM_STR = "You are Odin's helpful assistant."
-DEFAULT_PROMPT = "where do I live?"
+DEFAULT_PROMPT = "I am Odin, the All-Father.  Where do I live?"
 DEFAULT_TEMP = 0.7
 DEFAULT_STREAMING = True
 MIN_TEMP = 0
@@ -21,6 +18,9 @@ temp_flt = DEFAULT_TEMP
 streaming_output = DEFAULT_STREAMING
 model_names = [] #empty list to store model names
 conversation_history = [{"role": "system", "content": system_str}] # Initialize conversation history
+
+# Initialize colorama
+init(autoreset=True)
 
 # Get list of available models
 try:
@@ -37,12 +37,13 @@ for model in model_set.models:
 
 model_names.sort()  # Sort the list of model names alphabetically
 
+# Print the list of model names
 for name in model_names:
     print(Fore.GREEN + f"\t{name}", flush=True)
 
 # Prompt model overrides
 while True:
-    model_str = input(f"\nModel \"{model_str}\": ") or model_str
+    model_str = input(f"Model \"{model_str}\": ") or model_str
     if  ":" not in model_str: # add ":latest" if not specified
         model_str = model_str + ":latest"
     if model_str.lower() in (name.lower() for name in model_names):
@@ -66,7 +67,6 @@ while True:
 
 # Prompt for prompt overrides
 prompt_str = input(f"Prompt \"{prompt_str}\": ").strip() or prompt_str
-prompt_str = "I am Odin, the All Father. " + prompt_str
 
 def chat_with_model(prompt):
     """
@@ -95,7 +95,7 @@ def chat_with_model(prompt):
         full_response = ''.join(response_chunks)
         conversation_history.append({"role": "assistant", "content": full_response})
 
-#        # print diagnositcs
+#        # print conversation diagnositcs
 #        for item in conversation_history:
 #            print(Fore.YELLOW + f"{item.get("role")}: {item.get("content")}")
 #            #print(list(item.items()))
