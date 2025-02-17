@@ -4,23 +4,6 @@ from ollama import list as ollama_list, chat as ollama_chat  # Import specific f
 # Initialize colorama
 init(autoreset=True)
 
-# Get list of available models
-try:
-    model_set = ollama_list()
-except Exception as e:
-    print(Fore.RED + "An error occurred listing Ollama models:", str(e))
-    exit(1)
-
-# Initialize an empty list to store the simplified model names
-model_names = []
-
-# Iterate over the list and get simplified model names
-print(Fore.GREEN + "Available models: ", end="")
-for model in model_set.models:
-    model_name = model.model.split(":")[0]  # Split the string at ":" and take the first part
-    model_names.append(model_name)  # Append the processed model name to the list
-    print(Fore.GREEN + f"{model_name}", end=" ", flush=True)
-
 # Set default values
 DEFAULT_MODEL = "llama3.2"
 DEFAULT_SYSTEM_STR = "You are Odin's helpful assistant."
@@ -36,23 +19,39 @@ system_str = DEFAULT_SYSTEM_STR
 prompt_str = DEFAULT_PROMPT
 temp_flt = DEFAULT_TEMP
 streaming_output = DEFAULT_STREAMING
+model_names = [] #empty list to store model names
+conversation_history = [{"role": "system", "content": system_str}] # Initialize conversation history
 
-# Initialize conversation history
-conversation_history = [
-    {"role": "system", "content": system_str}
-]
+# Get list of available models
+try:
+    model_set = ollama_list()
+except Exception as e:
+    print(Fore.RED + "An error occurred listing Ollama models:", str(e))
+    exit(1)
+
+# Iterate over the list and populate a list of model names
+print(Fore.GREEN + "Available models: ")
+for model in model_set.models:
+    model_name = model.model  
+    model_names.append(model_name)  # Append the processed model name to the list
+
+model_names.sort()  # Sort the list of model names alphabetically
+
+for name in model_names:
+    print(Fore.GREEN + f"\t{name}", flush=True)
+
 # Prompt model overrides
 while True:
-    model_str = input(f"\nModel \"{model_str}\": ").strip() or model_str
+    model_str = input(f"\nModel \"{model_str}\": ") or model_str
+    if  ":" not in model_str: # add ":latest" if not specified
+        model_str = model_str + ":latest"
     if model_str.lower() in (name.lower() for name in model_names):
         break
     else:
         print(Fore.RED + f"Model \"{model_str}\" Not valid.")
-        print(Fore.GREEN + "Available models: ", end="")
-        for model in model_set.models:
-            model_name = model.model.split(":")[0]  # Split the string at ":" and take the first part
-            model_names.append(model_name)  # Append the processed model name to the list
-            print(Fore.GREEN + f"{model_name}", end=" ", flush=True)
+        print(Fore.GREEN + "Available models: ")
+        for name in model_names:
+            print(Fore.GREEN + f"\t{name}", flush=True)
 
 # Prompt for temperature overrides with validation
 while True:
