@@ -24,13 +24,13 @@ for model in model_set.models:
 # Set default values
 DEFAULT_MODEL = "llama3.2"
 DEFAULT_SYSTEM_STR = "You are Odin's helpful assistant."
-DEFAULT_PROMPT = "what is a mole?"
+DEFAULT_PROMPT = "where do I live?"
 DEFAULT_TEMP = 0.7
 DEFAULT_STREAMING = True
-
 MIN_TEMP = 0
 MAX_TEMP = 1
 
+# Initialize variables with default values
 model_str = DEFAULT_MODEL
 system_str = DEFAULT_SYSTEM_STR
 prompt_str = DEFAULT_PROMPT
@@ -67,6 +67,7 @@ while True:
 
 # Prompt for prompt overrides
 prompt_str = input(f"Prompt \"{prompt_str}\": ").strip() or prompt_str
+prompt_str = "I am Odin, the All Father. " + prompt_str
 
 def chat_with_model(prompt):
     """
@@ -89,10 +90,17 @@ def chat_with_model(prompt):
             chunk_content = chunk['message']['content']
             print(Fore.CYAN + chunk_content, end="", flush=True)
             response_chunks.append(chunk_content)
-        
+        print()
+
         # Combine all chunks into a single response
         full_response = ''.join(response_chunks)
         conversation_history.append({"role": "assistant", "content": full_response})
+
+#        # print diagnositcs
+#        for item in conversation_history:
+#            print(Fore.YELLOW + f"{item.get("role")}: {item.get("content")}")
+#            #print(list(item.items()))
+
     except Exception as e:
         print(Fore.RED + "\n\nA chat error occurred:", str(e))
         exit(1)
