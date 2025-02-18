@@ -3,20 +3,20 @@ from colorama import init, Fore, Style
 
 # Set default values
 DEFAULT_MODEL: str = "llama3.2"
-DEFAULT_SYSTEM_STR: str = "You are Odin's helpful assistant."
+DEFAULT_SYSTEM_PROMPT: str = "You are Odin's helpful assistant."
 DEFAULT_PROMPT: str = "I am Odin, the All-Father.  Where do I live?"
-DEFAULT_TEMP: float = 0.7
+DEFAULT_TEMPERATURE: float = 0.7
 DEFAULT_STREAMING: bool = True
-MIN_TEMP: int = 0
-MAX_TEMP: int = 1
+MINIMUM_TEMPERATURE: int = 0.0
+MAXIMUM_TEMPERATURE: int = 1.0
 
 # Initialize variables with default values
-model_str: str = DEFAULT_MODEL
-system_str: str = DEFAULT_SYSTEM_STR
-prompt_str: str = DEFAULT_PROMPT
-temp_flt: float = DEFAULT_TEMP
+model_name: str = DEFAULT_MODEL
+system_prompt: str = DEFAULT_SYSTEM_PROMPT
+user_prompt: str = DEFAULT_PROMPT
+model_temperature: float = DEFAULT_TEMPERATURE
 streaming_output: bool = DEFAULT_STREAMING
-model_names: list = [] #empty list to store model names
+model_names: list[str] = [] #empty list to store model names
 
 # Initialize colorama
 init(autoreset=True)
@@ -29,10 +29,9 @@ except Exception as e:
     exit(1)
 
 # Iterate over the list and populate a list of model names
-print(Fore.GREEN + "Available models: ")
+print(Fore.GREEN + "Available model names: ")
 for model in model_set.models:
-    model_name = model.model  
-    model_names.append(model_name)  # Append the processed model name to the list
+    model_names.append(model.model)  # Append the processed model name to the list
 
 model_names.sort()  # Sort the list of model names alphabetically
 
@@ -42,35 +41,32 @@ for name in model_names:
 
 # Prompt model overrides
 while True:
-    model_str = input(f"Model \"{model_str}\": ") or model_str
-    if  ":" not in model_str: # add ":latest" if not specified
-        model_str = model_str + ":latest"
-    if model_str.lower() in (name.lower() for name in model_names):
+    model_name = input(f"Model Name \"{model_name}\": ") or model_name
+    if  ":" not in model_name: # add ":latest" if not specified
+        model_name = model_name + ":latest"
+    if model_name.lower() in (name.lower() for name in model_names):
         break
     else:
-        print(Fore.RED + f"Model \"{model_str}\" Not valid.")
+        print(Fore.RED + f"Model Name \"{model_name}\" Not valid. Please try again.")
         print(Fore.GREEN + "Available models: ")
         for name in model_names:
             print(Fore.GREEN + f"\t{name}", flush=True)
 
 # Prompt for temperature overrides with validation
 while True:
-    try:
-        temp_flt = float(input(f"Temperature \"{temp_flt}\": ") or temp_flt)
-        if MIN_TEMP <= temp_flt <= MAX_TEMP:
-            break
-        else:
-            print(Fore.RED + f"Temperature must be between {MIN_TEMP} and {MAX_TEMP}. Please try again.")
-    except ValueError:
-        print(Fore.RED + "Invalid input. Please enter a number between 0 and 1.")
+    model_temperature = float(input(f"Model Temperature \"{model_temperature}\": ") or model_temperature)
+    if MINIMUM_TEMPERATURE <= model_temperature <= MAXIMUM_TEMPERATURE:
+        break
+    else:
+        print(Fore.RED + f"Model Temperature {model_temperature} must be between {MINIMUM_TEMPERATURE} and {MAXIMUM_TEMPERATURE}. Please try again.")
 
 # prompt for system string overrides
-system_str = input(f"System Prompt \"{system_str}\": ").strip() or system_str
+system_prompt = input(f"System Prompt \"{system_prompt}\": ").strip() or system_prompt
 
 # Prompt for prompt overrides
-prompt_str = input(f"User Prompt \"{prompt_str}\": ").strip() or prompt_str
+user_prompt = input(f"User Prompt \"{user_prompt}\": ").strip() or user_prompt
 
-conversation_history: list = [{"role": "system", "content": system_str}] # Initialize conversation history
+conversation_history: list = [{"role": "system", "content": system_prompt}] # Initialize conversation history
 
 def chat_with_model(prompt: str) -> None:
     """
@@ -79,10 +75,10 @@ def chat_with_model(prompt: str) -> None:
     try:
         conversation_history.append({"role": "user", "content": prompt})
         response = ollama_chat(
-            model=model_str,
+            model=model_name,
             messages=conversation_history,
             stream=streaming_output,
-            options={'temperature': temp_flt} # very conservative (good for coding and correct syntax)
+            options={'temperature': model_temperature} # very conservative (good for coding and correct syntax)
         )
         
         # Initialize a list to collect the response chunks
@@ -110,8 +106,8 @@ def chat_with_model(prompt: str) -> None:
 
 # Allow repeated prompts
 while True:
-    chat_with_model(prompt_str)
-    prompt_str = input("\n\nPrompt: ").strip()
-    if prompt_str.lower() in ["exit", "quit", ""]:
+    chat_with_model(user_prompt)
+    user_prompt = input("\n\nUser Prompt: ").strip()
+    if user_prompt.lower() in ["exit", "quit", ""]:
         break
 exit(0)
