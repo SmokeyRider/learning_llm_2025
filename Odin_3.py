@@ -17,7 +17,6 @@ prompt_str: str = DEFAULT_PROMPT
 temp_flt: float = DEFAULT_TEMP
 streaming_output: bool = DEFAULT_STREAMING
 model_names: list = [] #empty list to store model names
-conversation_history: list = [{"role": "system", "content": system_str}] # Initialize conversation history
 
 # Initialize colorama
 init(autoreset=True)
@@ -57,7 +56,7 @@ while True:
 # Prompt for temperature overrides with validation
 while True:
     try:
-        temp_flt = float(input(f"Temperature \"{temp_flt}\": ").strip() or temp_flt)
+        temp_flt = float(input(f"Temperature \"{temp_flt}\": ") or temp_flt)
         if MIN_TEMP <= temp_flt <= MAX_TEMP:
             break
         else:
@@ -65,8 +64,13 @@ while True:
     except ValueError:
         print(Fore.RED + "Invalid input. Please enter a number between 0 and 1.")
 
+# prompt for system string overrides
+system_str = input(f"System Prompt \"{system_str}\": ").strip() or system_str
+
 # Prompt for prompt overrides
-prompt_str = input(f"Prompt \"{prompt_str}\": ").strip() or prompt_str
+prompt_str = input(f"User Prompt \"{prompt_str}\": ").strip() or prompt_str
+
+conversation_history: list = [{"role": "system", "content": system_str}] # Initialize conversation history
 
 def chat_with_model(prompt: str) -> None:
     """
