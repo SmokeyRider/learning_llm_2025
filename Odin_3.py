@@ -2,22 +2,22 @@ from ollama import list as ollama_list, chat as ollama_chat  # Import specific f
 from colorama import init, Fore, Style
 
 # Set default values
-DEFAULT_MODEL = "llama3.2"
-DEFAULT_SYSTEM_STR = "You are Odin's helpful assistant."
-DEFAULT_PROMPT = "I am Odin, the All-Father.  Where do I live?"
-DEFAULT_TEMP = 0.7
-DEFAULT_STREAMING = True
-MIN_TEMP = 0
-MAX_TEMP = 1
+DEFAULT_MODEL: str = "llama3.2"
+DEFAULT_SYSTEM_STR: str = "You are Odin's helpful assistant."
+DEFAULT_PROMPT: str = "I am Odin, the All-Father.  Where do I live?"
+DEFAULT_TEMP: float = 0.7
+DEFAULT_STREAMING: bool = True
+MIN_TEMP: int = 0
+MAX_TEMP: int = 1
 
 # Initialize variables with default values
-model_str = DEFAULT_MODEL
-system_str = DEFAULT_SYSTEM_STR
-prompt_str = DEFAULT_PROMPT
-temp_flt = DEFAULT_TEMP
-streaming_output = DEFAULT_STREAMING
-model_names = [] #empty list to store model names
-conversation_history = [{"role": "system", "content": system_str}] # Initialize conversation history
+model_str: str = DEFAULT_MODEL
+system_str: str = DEFAULT_SYSTEM_STR
+prompt_str: str = DEFAULT_PROMPT
+temp_flt: float = DEFAULT_TEMP
+streaming_output: bool = DEFAULT_STREAMING
+model_names: list = [] #empty list to store model names
+conversation_history: list = [{"role": "system", "content": system_str}] # Initialize conversation history
 
 # Initialize colorama
 init(autoreset=True)
@@ -68,7 +68,7 @@ while True:
 # Prompt for prompt overrides
 prompt_str = input(f"Prompt \"{prompt_str}\": ").strip() or prompt_str
 
-def chat_with_model(prompt):
+def chat_with_model(prompt: str) -> None:
     """
     Function to chat with the model.
     """
