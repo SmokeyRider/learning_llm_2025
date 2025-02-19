@@ -18,13 +18,6 @@ class VehicleType(Enum):
 class Vehicle:
     """
     A class to represent a vehicle.
-
-    Attributes:
-    make (str): The make of the vehicle.
-    model (str): The model of the vehicle.
-    year (int): The year the vehicle was manufactured.
-    driver (str): The name of the driver.
-    type (VehicleType): The type of the vehicle (default is VehicleType.CAR).
     """
 
     def __init__(self, make: str, model: str, year: int, driver: str, type: VehicleType = VehicleType.CAR):
@@ -60,6 +53,7 @@ def main():
     """
     The main function to demonstrate the Vehicle class and VehicleType enumeration.
     """
+    
     # List to store vehicle instances
     vehicles = []
 
@@ -73,13 +67,20 @@ def main():
     vehicles.append(Vehicle("Polygon", "Siskiu T8", 2024, "Odin", type=VehicleType.BIKE))
     vehicles.append(Vehicle("GT", "Avalance 2.0", 2003, "Odin", type=VehicleType.BIKE))
 
-    # Sorting vehicles by year
+    # Sorting vehicles by year using a lambda function
     vehicles.sort(key=lambda x: x.year)
 
-    # Display all vehicles
+    # Display all vehicles by stepping through the list
     print("All Vehicles:")
     for vehicle in vehicles:
         vehicle.display()
+
+    # display the total number of vehicles
+    print(f"\nTotal number of vehicles: {len(vehicles)}")  
+
+    # display the last vehicle showing dunder __str__ method
+    print("\nLast Vehicle:")
+    print(vehicles[-1])
 
     # Select all bikes using list comprehension
     bikes = [vehicle for vehicle in vehicles if vehicle.type == VehicleType.BIKE]
@@ -105,9 +106,6 @@ def main():
     for motorcycle in motorcycles:
         motorcycle.display()
 
-    # display the last vehicle
-    print("\nLast Vehicle:")
-    print(vehicles[-1])
-
+# Run the main function if the module is executed as a script
 if __name__ == "__main__":
     main()
