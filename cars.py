@@ -52,7 +52,7 @@ class Vehicle:
 def main():
     """
     The main function to demonstrate the Vehicle class and VehicleType enumeration.
-    """
+    """ 
     
     # List to store vehicle instances
     vehicles = []
@@ -67,20 +67,20 @@ def main():
     vehicles.append(Vehicle("Polygon", "Siskiu T8", 2024, "Odin", type=VehicleType.BIKE))
     vehicles.append(Vehicle("GT", "Avalance 2.0", 2003, "Odin", type=VehicleType.BIKE))
 
+    # display the last vehicle showing dunder __str__ method
+    print("\nLast Vehicle added:")
+    print(vehicles[-1])
+
     # Sorting vehicles by year using a lambda function
     vehicles.sort(key=lambda x: x.year)
 
     # Display all vehicles by stepping through the list
-    print("All Vehicles:")
+    print("\nAll Vehicles:")
     for vehicle in vehicles:
         vehicle.display()
 
     # display the total number of vehicles
     print(f"\nTotal number of vehicles: {len(vehicles)}")  
-
-    # display the last vehicle showing dunder __str__ method
-    print("\nLast Vehicle:")
-    print(vehicles[-1])
 
     # Select all bikes using list comprehension
     bikes = [vehicle for vehicle in vehicles if vehicle.type == VehicleType.BIKE]
