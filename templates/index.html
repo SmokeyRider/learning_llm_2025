@@ -7,6 +7,11 @@
         function updateTemperatureValue(val) {
             document.getElementById('temperature_value').innerText = val;
         }
+
+        function scrollToBottom() {
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+        window.onload = scrollToBottom;
     </script>
 </head>
 <body>

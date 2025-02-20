@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Set default values
 DEFAULT_MODEL:str = "llama3.2:latest"
 DEFAULT_SYSTEM_PROMPT:str = "You are Odin's helpful assistant."
-DEFAULT_PROMPT:str = "I am Odin, the All-Father. Where do I live?"
+DEFAULT_PROMPT:str = "Tell me a joke"
 DEFAULT_TEMPERATURE:float = 0.7
 DEFAULT_STREAMING:float = True
 MAX_TEMP:float = 0.9
@@ -63,15 +63,13 @@ def index():
         full_response = ''.join(response_chunks)
         conversation_history.append({"role": "assistant", "content": full_response})
 
-        full_response = full_response.replace('\n', '\n<br>')
+        full_response = full_response.replace('\n', '\n<br>') #add HTML line breaks to the response
         #full_response = full_response.replace('<think>', '<h>Thinking...</h3>')
         response_history += f"<h3>User Prompt:</h3>{user_prompt}<h3>Response:</h3>{full_response}"
 
         user_prompt = '' #clear the user prompt after submission
-    else:   
-        user_prompt = ''
+    else:   # GET request
         response_history = ''
-    print(f'selected_model: {model_name}')
     return render_template('index.html', prompt=user_prompt, response=response_history, models=model_names, selected_model=model_name, system_prompt=system_prompt, model_temperature=model_temperature, min_temp=MIN_TEMP, max_temp=MAX_TEMP, min_temp_step=MIN_TEMP_STEP)
 
 if __name__ == '__main__':
