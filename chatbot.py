@@ -67,16 +67,18 @@ def index():
         # Convert markdown to HTML
         full_response = markdown.markdown(full_response)
 
-        #full_response = full_response.replace('\n', '\n<br>') #add HTML line breaks to the response
+        # Replace <think> tags for Deepseek with HTML divs
         full_response = full_response.replace('<think>', '<div class="chat-message thinking">Thinking... ')
         full_response = full_response.replace('</think>', '</div>')
-        response_history += f'<div class="chat-message user">{user_prompt}</div><div class="chat-message assistant">{full_response}</div>'
 
-        user_prompt = '' #clear the user prompt after 
-        # print debugging info
-        print(f'DIAG: conversation history: {len(conversation_history)}')
-        for message in conversation_history:
-            print(f"DIAG: {message}")
+        # Add user and assistant messages to output response history
+        response_history += f'<div class="chat-message user"><p>{user_prompt}</p></div> <div class="chat-message assistant">{full_response}</div>'
+
+        user_prompt = '' #clear the user prompt after each use
+        ## print debugging info
+        # print(f'DIAG: conversation history: {len(conversation_history)}')
+        # for message in conversation_history:
+        #     print(f"DIAG: {message}")
 
     else:   # GET request
         response_history = ''
