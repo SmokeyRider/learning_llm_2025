@@ -55,7 +55,7 @@ def index():
             response_chunks.append(chunk_content)
         full_response = ''.join(response_chunks)
         conversation_history.append({"role": "assistant", "content": full_response})
-    else:
+    else:   
         user_prompt = ''
         full_response = ''
     return render_template('index.html', prompt=user_prompt, response=full_response, models=model_names, selected_model=model_name, system_prompt=system_prompt, model_temperature=model_temperature, min_temp=MIN_TEMP, max_temp=MAX_TEMP, min_temp_step=MIN_TEMP_STEP)
