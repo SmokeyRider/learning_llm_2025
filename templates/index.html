@@ -30,6 +30,11 @@
         <label for="system_prompt">System Prompt:</label>
         <input type="text" id="system_prompt" name="system_prompt" value="{{ system_prompt }}" maxlength="100" size="50">
         <br>
+        
+        <div id="chat-response">
+            <h2>Response:</h2>
+            <p>{{ response }}</p>
+        </div>
 
         <h2>Let's Chat</h2>
 
@@ -38,9 +43,5 @@
         <button type="submit">Send</button>
 
     </form>
-    <div id="chat-response">
-        <h2>Response:</h2>
-        <p>{{ response }}</p>
-    </div>
 </body>
 </html>
