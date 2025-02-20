@@ -54,7 +54,7 @@ def main():
     The main function to demonstrate the Vehicle class and VehicleType enumeration.
     """ 
     
-    # List to store vehicle instances
+    # Empty list to store vehicle instances
     vehicles = []
 
     # Adding vehicle instances to the list
