@@ -72,6 +72,14 @@
         .center-title {
             text-align: center;
         }
+        .input-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between textarea and button */
+        }
+        .input-container textarea {
+            flex-grow: 1; /* Allow textarea to take available space */
+        }
     </style>
     <script>
         function updateTemperatureValue(val) {
@@ -93,7 +101,7 @@
         <div>
             <h3>Model Setup:</h3>
 
-            <label for="model">Model:</label>
+            <label for="model">Model Name:</label>
             <select id="model" name="model" >
                 {% for model in models %}
                     <option value="{{ model }}" {% if model == selected_model %}selected{% endif %}>{{ model }}</option>
@@ -105,9 +113,10 @@
             <input type="range" id="model_temperature" name="model_temperature" min="{{ min_temp }}" max="{{ max_temp }}" step="{{min_temp_step}}" value="{{ model_temperature }}" oninput="updateTemperatureValue(this.value)">
             <span id="temperature_value">{{ model_temperature }}</span>
             <br>
-
-            <label for="system_prompt">System Prompt:</label>
-            <input type="text" id="system_prompt" name="system_prompt" value="{{ system_prompt }}" maxlength="100" size="50">
+            <div class="input-container">
+                <label for="system_prompt">System Prompt:</label>
+                <textarea id="system_prompt" name="system_prompt" maxlength="200" rows="1" cols="70">{{ system_prompt }}</textarea>
+            </div>
             <br>
         </div>
         <h3>Chat History:</h3>
@@ -116,9 +125,10 @@
         </div>
 
         <h3><label for="prompt">User Prompt:</label></h3>
-        <input type="text" id="prompt" name="prompt" value="{{ prompt }}" maxlength="200" size="50">
-        <button type="submit">Send</button>
-
+        <div class="input-container">
+            <textarea id="prompt" name="prompt" maxlength="500" rows="2" cols="75">{{ prompt }}</textarea>
+            <button type="submit">Send</button>
+        </div>
     </form>
     </div>
 </body>
