@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from ollama import list as ollama_list, chat as ollama_chat  # Import specific functions
+import markdown
 
 app = Flask(__name__)
 
@@ -63,8 +64,12 @@ def index():
         full_response = ''.join(response_chunks)
         conversation_history.append({"role": "assistant", "content": full_response})
 
-        full_response = full_response.replace('\n', '\n<br>') #add HTML line breaks to the response
-        #full_response = full_response.replace('<think>', '<h>Thinking...</h3>')
+        # Convert markdown to HTML
+        full_response = markdown.markdown(full_response)
+
+        #full_response = full_response.replace('\n', '\n<br>') #add HTML line breaks to the response
+        full_response = full_response.replace('<think>', '<div class="chat-message thinking">Thinking... ')
+        full_response = full_response.replace('</think>', '</div>')
         response_history += f'<div class="chat-message user">{user_prompt}</div><div class="chat-message assistant">{full_response}</div>'
 
         user_prompt = '' #clear the user prompt after submission
