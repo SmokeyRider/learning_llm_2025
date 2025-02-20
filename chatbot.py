@@ -33,8 +33,6 @@ except Exception as e:
     print("An error occurred listing Ollama models:", str(e))
     exit(1)
 
-conversation_history = [{"role": "system", "content": system_prompt}]
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global user_prompt, conversation_history, model_name, system_prompt, model_temperature, response_history
@@ -43,6 +41,8 @@ def index():
         model_name = request.form['model']
         system_prompt = request.form['system_prompt']
         model_temperature = float(request.form['model_temperature'])
+        conversation_history = [msg for msg in conversation_history if msg["role"] != "system"] # clear assistant messages from history
+        conversation_history.append({"role": "system", "content": system_prompt})
         conversation_history.append({"role": "user", "content": user_prompt})
         print(f'model name: {model_name}')
         print(f'model temperature: {model_temperature}')
@@ -72,9 +72,15 @@ def index():
         full_response = full_response.replace('</think>', '</div>')
         response_history += f'<div class="chat-message user">{user_prompt}</div><div class="chat-message assistant">{full_response}</div>'
 
-        user_prompt = '' #clear the user prompt after submission
+        user_prompt = '' #clear the user prompt after 
+        # print debugging info
+        print(f'DIAG: conversation history: {len(conversation_history)}')
+        for message in conversation_history:
+            print(f"DIAG: {message}")
+
     else:   # GET request
         response_history = ''
+        conversation_history = []
     return render_template('index.html', prompt=user_prompt, response=response_history, models=model_names, selected_model=model_name, system_prompt=system_prompt, model_temperature=model_temperature, min_temp=MIN_TEMP, max_temp=MAX_TEMP, min_temp_step=MIN_TEMP_STEP)
 
 if __name__ == '__main__':
