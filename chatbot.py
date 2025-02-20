@@ -65,7 +65,7 @@ def index():
 
         full_response = full_response.replace('\n', '\n<br>') #add HTML line breaks to the response
         #full_response = full_response.replace('<think>', '<h>Thinking...</h3>')
-        response_history += f"<h3>User Prompt:</h3>{user_prompt}<h3>Response:</h3>{full_response}"
+        response_history += f'<div class="chat-message user">{user_prompt}</div><div class="chat-message assistant">{full_response}</div>'
 
         user_prompt = '' #clear the user prompt after submission
     else:   # GET request
