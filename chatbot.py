@@ -4,7 +4,7 @@ from ollama import list as ollama_list, chat as ollama_chat  # Import specific f
 app = Flask(__name__)
 
 # Set default values
-DEFAULT_MODEL:str = "llama3.2"
+DEFAULT_MODEL:str = "llama3.2:latest"
 DEFAULT_SYSTEM_PROMPT:str = "You are Odin's helpful assistant."
 DEFAULT_PROMPT:str = "I am Odin, the All-Father. Where do I live?"
 DEFAULT_TEMPERATURE:float = 0.7
@@ -46,29 +46,32 @@ def index():
         print(f'model name: {model_name}')
         print(f'model temperature: {model_temperature}')
         print(f'system prompt: {system_prompt}')
-        #print(f'user prompt: {user_prompt}')
+        print(f'user prompt: {user_prompt}')
         response = ollama_chat(
             model=model_name,
             messages=conversation_history,
             stream=streaming_output,
             options={'temperature': model_temperature}
         )
+        print(f'Response: ',end='')
         response_chunks = []
         for chunk in response:
             chunk_content = chunk['message']['content']
             response_chunks.append(chunk_content)
-            #print(f'{chunk_content}', end='', flush=True)
+            print(f'{chunk_content}', end='', flush=True)
+        print('')
         full_response = ''.join(response_chunks)
         conversation_history.append({"role": "assistant", "content": full_response})
 
-        #print(f'\n\nFull Response: \n{full_response}')
-        response_history += f"\n<br>User Prompt:\n<br>{user_prompt}\n\n<br>Response:\n<br>{full_response}"
-        print(f'\n\nResponse History: \n{response_history}')
+        full_response = full_response.replace('\n', '\n<br>')
+        #full_response = full_response.replace('<think>', '<h>Thinking...</h3>')
+        response_history += f"<h3>User Prompt:</h3>{user_prompt}<h3>Response:</h3>{full_response}"
 
         user_prompt = '' #clear the user prompt after submission
     else:   
         user_prompt = ''
         response_history = ''
+    print(f'selected_model: {model_name}')
     return render_template('index.html', prompt=user_prompt, response=response_history, models=model_names, selected_model=model_name, system_prompt=system_prompt, model_temperature=model_temperature, min_temp=MIN_TEMP, max_temp=MAX_TEMP, min_temp_step=MIN_TEMP_STEP)
 
 if __name__ == '__main__':

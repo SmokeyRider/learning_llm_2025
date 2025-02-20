@@ -12,7 +12,7 @@
 <body>
     <h1>Odin's Chat Assistant</h1>
     <form method="POST">
-        <h2>Model Setup</h2>
+        <h3>Model Setup</h3>
 
         <label for="model">Model:</label>
         <select id="model" name="model" >
@@ -32,13 +32,10 @@
         <br>
         
         <div id="chat-response">
-            <h2>Response:</h2>
-            <p>{{ response }}</p>
+            <p>{{ response|safe }}</p>
         </div>
 
-        <h2>Let's Chat</h2>
-
-        <label for="prompt">User Prompt:</label>
+        <h3><label for="prompt">User Prompt:</label></h3>
         <input type="text" id="prompt" name="prompt" value="{{ prompt }}" maxlength="200" size="50">
         <button type="submit">Send</button>
 
