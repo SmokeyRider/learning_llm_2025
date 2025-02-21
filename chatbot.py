@@ -44,23 +44,23 @@ def index():
         conversation_history = [msg for msg in conversation_history if msg["role"] != "system"] # clear assistant messages from history
         conversation_history.append({"role": "system", "content": system_prompt})
         conversation_history.append({"role": "user", "content": user_prompt})
-        print(f'model name: {model_name}')
-        print(f'model temperature: {model_temperature}')
-        print(f'system prompt: {system_prompt}')
-        print(f'user prompt: {user_prompt}')
+        # print(f'model name: {model_name}')
+        # print(f'model temperature: {model_temperature}')
+        # print(f'system prompt: {system_prompt}')
+        # print(f'user prompt: {user_prompt}')
         response = ollama_chat(
             model=model_name,
             messages=conversation_history,
             stream=streaming_output,
             options={'temperature': model_temperature}
         )
-        print(f'Response: ',end='')
+        # print(f'Response: ',end='')
         response_chunks = []
         for chunk in response:
             chunk_content = chunk['message']['content']
             response_chunks.append(chunk_content)
-            print(f'{chunk_content}', end='', flush=True)
-        print('')
+            # print(f'{chunk_content}', end='', flush=True)
+        # print('')
         full_response = ''.join(response_chunks)
         conversation_history.append({"role": "assistant", "content": full_response})
 
