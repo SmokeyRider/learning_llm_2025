@@ -8,14 +8,14 @@ Various python scripts that I used to learn python for running various AI models
         templates/index.html
         pip install flask
         pip install ollama
-        
+
 # Script: Odin_3.py 
     This is the last generation script for terminal based chat.
     
     Requires:
     pip install ollama
 
-# cars.py
+# Script: cars.py
     This script is to experiment with Python object manipulation
 
 # Script: categorizer.py
