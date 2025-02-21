@@ -8,10 +8,10 @@ app = Flask(__name__)
 DEFAULT_MODEL:str = "llama3.2:latest"
 DEFAULT_SYSTEM_PROMPT:str = "You are Odin's helpful assistant."
 DEFAULT_PROMPT:str = "Tell me a joke"
-DEFAULT_TEMPERATURE:float = 0.7
 DEFAULT_STREAMING:float = True
-MAX_TEMP:float = 0.9
-MIN_TEMP:float = 0.1
+DEFAULT_TEMPERATURE:float = 0.6
+MAX_TEMP:float = 1.0
+MIN_TEMP:float = 0.0
 MIN_TEMP_STEP:float = 0.1
 
 # Initialize variables with default values
