@@ -1,7 +1,7 @@
 import ollama
 import os
 
-model_name = "deepseek-r1" # Specify the model to use
+model_name = "deepseek-r1:latest" # Specify the model to use
 
 input_file = "./data/grocery_list.txt"
 output_file = "./data/categorized_grocery_list.txt"
