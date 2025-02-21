@@ -20,7 +20,9 @@ Various python scripts that I used to learn python for running various AI models
 
 # Script: categorizer.py
     This scripts uses hardcoded values to read a file continain list of grocery items and cateogrize them.
+    It's based on a Youtube tutorial
 
     Requires:
         data/grocery_list.txt
         pip install ollama
+        
