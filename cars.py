@@ -75,18 +75,15 @@ def main():
     vehicles.sort(key=lambda x: x.year)
 
     # Display all vehicles by stepping through the list
-    print("\nAll Vehicles:")
+    print(f"\nAll Vehicles: ({len(vehicles)})")
     for vehicle in vehicles:
         vehicle.display()
-
-    # display the total number of vehicles
-    print(f"\nTotal number of vehicles: {len(vehicles)}")  
 
     # Select all bikes using list comprehension
     bikes = [vehicle for vehicle in vehicles if vehicle.type == VehicleType.BIKE]
 
     # Display all bikes
-    print("\nBikes:")
+    print(f"\nBikes: ({len(bikes)})")
     for bike in bikes:
         bike.display()
 
@@ -94,7 +91,7 @@ def main():
     cars = [vehicle for vehicle in vehicles if vehicle.type == VehicleType.CAR]
 
     # Display all cars
-    print("\nCars:")
+    print(f"\nCars: ({len(cars)})")
     for car in cars:
         car.display()
 
@@ -102,9 +99,24 @@ def main():
     motorcycles = [vehicle for vehicle in vehicles if vehicle.type == VehicleType.MOTORCYCLE]
 
     # Display all motorcycles
-    print("\nMotorcycles:")
+    print(f"\nMotorcycles: ({len(motorcycles)})")
     for motorcycle in motorcycles:
         motorcycle.display()
+
+    # Group vehicles by driver
+    vehicles_by_driver = {}
+    for vehicle in vehicles:
+        if vehicle.driver not in vehicles_by_driver:
+            vehicles_by_driver[vehicle.driver] = []
+        vehicles_by_driver[vehicle.driver].append(vehicle)
+    
+    # Display vehicles grouped by driver
+    print("\nVehicles by Driver:")
+    for driver, driver_vehicles in vehicles_by_driver.items():
+        print(f"\n{driver}'s Vehicles ({len(driver_vehicles)}):")
+        for vehicle in driver_vehicles:
+            vehicle.display()
+
 
 # Run the main function if the module is executed as a script
 if __name__ == "__main__":
