@@ -1,0 +1,22 @@
+{
+  // Name of the development container
+  "name": "oPython",
+
+  // Base image for the dev container see: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+
+  // Command to run after the container is created
+  // Installs Python packages: pandas, matplotlib, and ipykernel
+  "postCreateCommand": "pip install pandas matplotlib ipykernel",
+
+  // Customizations for the development environment
+  "customizations": {
+    "vscode": {
+      // List of VS Code extensions to install
+      "extensions": [
+        "ms-toolsai.jupyter", // Jupyter notebook support
+        "ms-python.python"    // Python language support
+      ]
+    }
+  }
+}
