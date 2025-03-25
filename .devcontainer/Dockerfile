@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y curl
 RUN curl -fsSL https://ollama.com/install.sh | bash
 
 # Install Ollama models
-RUN ollama get deepseek-r1 llama3.2 phi4
+#RUN ollama get deepseek-r1 llama3.2 phi4
 
 # Clean up to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
