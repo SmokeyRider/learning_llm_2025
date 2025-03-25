@@ -13,5 +13,7 @@ RUN curl -fsSL https://ollama.com/install.sh | bash
 # Clean up to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Ollama models like deepseek-r1 llama3.2 phi4
-#RUN ollama serve 
+# On startup, run Ollama serve &
+CMD ["ollama", "serve", "&"]
+
+# models like deepseek-r1 llama3.2 phi4
