@@ -21,7 +21,11 @@
           // Extensions to install automatically in the container
           "extensions": [
               "ms-python.python",       // Python language support
-              "ms-toolsai.jupyter"      // Jupyter notebook support
+              "ms-toolsai.jupyter",      // Jupyter notebook support
+              "davidanson.vscode-markdownlint",
+              "github.copilot",
+              "ms-azuretools.vscode-docker"
+
           ]
       }
   },
@@ -43,7 +47,7 @@
   // "postCreateCommand": "echo 'Container created!'", // Example: Run a command after container creation
 
   // Command to run after the container is started (runs every time the container starts)
-  "postStartCommand": "ollama serve &" // Verify Ollama installation after container starts 
+  "postStartCommand": "/usr/local/bin/start_ollama.sh" // start Ollama installation after container starts 
 
   // Uncomment to set the default working directory inside the container
   // "workspaceFolder": "/workspaces/learning-python-2025", // Example: Set the workspace folder
