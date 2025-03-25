@@ -28,8 +28,8 @@
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
 
-// Use 'postStartCommand' to run commands after the container is started (more frequently than create).
-//"postStartCommand": "",
+  // Use 'postStartCommand' to run commands after the container is started (more frequently than create).
+  "postStartCommand": "ollama --version", // Verify Ollama installation after container starts
 
   // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode"
