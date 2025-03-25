@@ -1,5 +1,5 @@
 from ollama import list as ollama_list, chat as ollama_chat  # Import specific functions
-from colorama import init, Fore, Style
+from colorama import init, Fore
 
 # Set default values
 DEFAULT_MODEL: str = "llama3.2"
