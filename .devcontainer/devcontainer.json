@@ -52,7 +52,7 @@
   // "workspaceFolder": "/workspaces/learning-python-2025", // Example: Set the workspace folder
 
   // Uncomment to specify the user to connect as inside the container
-   "remoteUser": "vscode" // Example: Connect as root instead of the default non-root user
+  // "remoteUser": "vscode" // Example: Connect as root instead of the default non-root user
 
   // Uncomment to add features (e.g., Node.js, Docker CLI) to the container
   // "features": {
