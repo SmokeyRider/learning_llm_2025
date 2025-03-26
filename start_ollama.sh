@@ -9,9 +9,11 @@ fi
 echo "Starting Ollama service..."
 # Start Ollama in the background
 ollama serve 
+OLLAMA_PID=$!
+echo "Ollama is running with PID: $OLLAMA_PID"
 
 # Optionally, wait a few seconds for the service to become ready
-sleep 2
+#sleep 2
 
 # Optional: Output the running processes for confirmation
-ollama ps
+#ollama ps
