@@ -67,5 +67,5 @@
   // ]
 
   // Command to run after the container is started (runs every time the container starts)
-"postStartCommand": "pip install -r requirements.txt" // start Ollama installation after container starts 
+"postStartCommand":   "pip install --upgrade pip && pip install -r requirements.txt"
 }
