@@ -6,23 +6,24 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #121212; /* Dark background */
+            color: #e0e0e0; /* Light text color */
             padding: 20px;
         }
         .container {
             max-width: 700px;
             margin: 0 auto;
-            background-color: #fff;
+            background-color: #1e1e1e; /* Darker container background */
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             position: relative; /* Add relative positioning */
         }
         .chat-response {
             height: 300px;
             overflow-y: auto;
-            border: 1px solid #dddddd6e;
-            background-color: #fbfbfb;
+            border: 1px solid #333333; /* Dark border */
+            background-color: #2a2a2a; /* Slightly lighter background */
             padding: 10px;
             margin-bottom: 20px;
             position: relative; /* Add relative positioning */
@@ -31,33 +32,37 @@
             margin-bottom: 10px;
         }
         .chat-message.user {
-            color: blue;
-            background-color: #ebefff;
+            color: #90caf9; /* Light blue text */
+            background-color: #1e3a5f; /* Blue background */
             text-align: right;
-            border: 1px solid #b9d3fa;
-            border-radius: 5px;
-            padding: 0;
-            margin: 1;
+            /*border: 1px solid #90caf9; */
+            border-radius: 35px;
+            padding: 5px;
+            margin: 5px 0;
+            width: 85%; /* Set width to 85% */
+            margin-left: auto; /* Right-justify */
         }
         .chat-message.assistant {
-            color: green;
-            background-color: #ecffe9;
-            border: 1px solid #c4f6bc;
-            border-radius: 5px;
-            padding: 0;
-            margin: 1;
+            color: #a5d6a7; /* Light green text */
+            background-color: #2e7d32; /* Green background */
+            /* border: 1px solid #a5d6a7; */
+            border-radius: 35px;
+            padding: 5px;
+            margin: 5px 0;
+            width: 85%; /* Set width to 85% */
+            margin-right: auto; /* Left-justify */
         }
         .chat-message.thinking {
-            color: rgb(78, 130, 78);
-            background-color: #ecffe9;
+            color: #ffcc80; /* Light orange text */
+            background-color: #4e342e; /* Brown background */
             font-style: italic;
-            padding: 0;
-            margin: 1;
+            padding: 5px;
+            margin: 5px 0;
         }
         .error-message {
-            color: red;
-            background-color: #ffecec;
-            border: 1px solid red;
+            color: #ef9a9a; /* Light red text */
+            background-color: #b71c1c; /* Dark red background */
+            border: 1px solid #ef9a9a;
             padding: 10px;
             border-radius: 5px;
             margin-top: 20px;
@@ -66,9 +71,17 @@
             padding: 10px 15px;
             font-size: 16px;
             cursor: pointer;
+            background-color: #424242; /* Dark button background */
+            color: #e0e0e0; /* Light text */
+            border: 1px solid #616161; /* Slightly lighter border */
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #616161; /* Slightly lighter on hover */
         }
         .center-title {
             text-align: center;
+            color: #ffffff; /* White title text */
         }
         .input-container {
             display: flex;
@@ -77,16 +90,20 @@
         }
         .input-container textarea {
             flex-grow: 1; /* Allow textarea to take available space */
+            background-color: #2a2a2a; /* Dark textarea background */
+            color: #e0e0e0; /* Light text */
+            border: 1px solid #424242; /* Dark border */
+            border-radius: 5px;
         }
         .spinner {
             display: none; /* Hide spinner by default */
-            border: 4px solid rgba(0, 0, 0, 0.1);
+            border: 4px solid rgba(255, 255, 255, 0.1); /* Light transparent border */
             border-radius: 50%;
-            border-top: 4px solid #3498db;
+            border-top: 4px solid #3498db; /* Blue spinner */
             width: 40px;
             height: 40px;
             animation: spin 2s linear infinite;
-            position: absolute; /* Position the spinner absolutely */
+            position: absolute;
             top: 85%; /* Center vertically */
             left: 50%; /* Center horizontally */
             transform: translate(-50%, -50%); /* Adjust for the spinner's size */
