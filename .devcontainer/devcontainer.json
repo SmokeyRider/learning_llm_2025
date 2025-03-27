@@ -27,6 +27,15 @@
               "ms-azuretools.vscode-docker"
           ]
       }
+    },
+
+// Uncomment to add features (e.g., Node.js, Docker CLI) to the container
+// "features": {
+//     "node": "16", // Example: Install Node.js version 16
+//     "docker-in-docker": "latest" // Example: Enable Docker-in-Docker
+// }, 
+  "features": {
+    "ghcr.io/prulloac/devcontainer-features/ollama:1": {}
   },
 
   // Uncomment to forward specific ports from the container to the host
@@ -45,24 +54,18 @@
   // Uncomment to run commands after the container is created (only runs once)
   // "postCreateCommand": "echo 'Container created!'", // Example: Run a command after container creation
 
-  // Command to run after the container is started (runs every time the container starts)
-  // "postStartCommand": "/usr/local/bin/start_ollama.sh" // start Ollama installation after container starts 
-
   // Uncomment to set the default working directory inside the container
   // "workspaceFolder": "/workspaces/learning-python-2025", // Example: Set the workspace folder
 
   // Uncomment to specify the user to connect as inside the container
-  // "remoteUser": "vscode" // Example: Connect as root instead of the default non-root user
-
-  // Uncomment to add features (e.g., Node.js, Docker CLI) to the container
-  // "features": {
-  //     "node": "16", // Example: Install Node.js version 16
-  //     "docker-in-docker": "latest" // Example: Enable Docker-in-Docker
-  // },
+  // "remoteUser": "root", // Example: Connect as root instead of the default non-root user
 
   // Uncomment to set memory or CPU limits for the container
   // "runArgs": [
   //     "--memory=4g", // Example: Limit memory to 4GB
   //     "--cpus=2"     // Example: Limit CPU usage to 2 cores
   // ]
+
+  // Command to run after the container is started (runs every time the container starts)
+"postStartCommand": "pip install -r requirements.txt" // start Ollama installation after container starts 
 }
