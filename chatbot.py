@@ -68,7 +68,7 @@ def index():
         full_response = markdown.markdown(full_response)
 
         # Replace <think> tags for Deepseek with HTML divs
-        full_response = full_response.replace('<think>', '<div class="chat-message thinking">Thinking... ')
+        full_response = full_response.replace('<think>', '<div class="chat-message thinking"><strong>Thinking...</strong>\n')
         full_response = full_response.replace('</think>', '</div>')
 
         # Add user and assistant messages to output response history
