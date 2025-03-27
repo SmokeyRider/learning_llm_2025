@@ -1,5 +1,4 @@
 import subprocess
-from concurrent.futures import ThreadPoolExecutor
 
 model_names: list = ["deepseek-r1", "phi4", "phi3", "gemma3", "llama3.3", "llama3.2", "mistral"]
 
@@ -12,11 +11,11 @@ def pull_model(model):
     else:
         print(f'Error: {model}: {result.stderr}')
 
-# Use ThreadPoolExecutor to run commands in parallel
-with ThreadPoolExecutor() as executor:
-    executor.map(pull_model, model_names)
+# Run commands serially
+for model in model_names:
+    pull_model(model)
 
-# Run "ollama list" after all threads are complete
+# Run "ollama list" after all models are pulled
 print("\nExecuting: ollama list")
 result = subprocess.run("ollama list", shell=True, capture_output=True, text=True)
 if result.returncode == 0:
