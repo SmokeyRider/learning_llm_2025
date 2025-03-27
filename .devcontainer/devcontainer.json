@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.245.0/containers/python-3
 {
-  "name": "vector-embeddings-demos", // Name of the development container
+  "name": "Learning_Python", // Name of the development container
 
   // Build configuration for the container
   "build": {
@@ -25,7 +25,6 @@
               "davidanson.vscode-markdownlint",
               "github.copilot",
               "ms-azuretools.vscode-docker"
-
           ]
       }
   },
@@ -47,7 +46,7 @@
   // "postCreateCommand": "echo 'Container created!'", // Example: Run a command after container creation
 
   // Command to run after the container is started (runs every time the container starts)
-  "postStartCommand": "/usr/local/bin/start_ollama.sh" // start Ollama installation after container starts 
+  // "postStartCommand": "/usr/local/bin/start_ollama.sh" // start Ollama installation after container starts 
 
   // Uncomment to set the default working directory inside the container
   // "workspaceFolder": "/workspaces/learning-python-2025", // Example: Set the workspace folder

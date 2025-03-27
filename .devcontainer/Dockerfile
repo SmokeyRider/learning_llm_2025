@@ -16,3 +16,5 @@ RUN chmod +x /usr/local/bin/start_ollama.sh
 
 # Clean up to reduce image size
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+CMD ["ollama", "serve"]
