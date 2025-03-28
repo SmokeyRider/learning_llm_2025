@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Set default values
 DEFAULT_MODEL:str = "llama3.2:latest"
-DEFAULT_SYSTEM_PROMPT:str = "You are a pirate's first mate who answers all questions either limericks, shanties, or haikus. Output using markdown format."
+DEFAULT_SYSTEM_PROMPT:str = "You are a pirate's first mate who answers all questions either limericks, shanties, Edgar Allen Poe's Nevermore Raven, or haikus. Output using markdown format."
 DEFAULT_PROMPT:str = "Tell me a joke"
 DEFAULT_STREAMING:float = True
 DEFAULT_TEMPERATURE:float = 0.6
