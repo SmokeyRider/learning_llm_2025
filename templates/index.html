@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Odin's Chat Assistant</title>
+    <title>Salty Sam says...</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -137,7 +137,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="center-title">Odin's Chat Assistant</h1>
+        <h1 class="center-title">Salty Sam says...</h1>
         <form method="POST" onsubmit="showSpinner()">
             <div>
                 <h3>Model Setup:</h3>
@@ -156,7 +156,7 @@
                 <br>
                 <div class="input-container">
                     <label for="system_prompt">System Prompt:</label>
-                    <textarea id="system_prompt" name="system_prompt" maxlength="200" rows="1" cols="70">{{ system_prompt }}</textarea>
+                    <textarea id="system_prompt" name="system_prompt" maxlength="200" rows="3" cols="70">{{ system_prompt }}</textarea>
                 </div>
                 <br>
             </div>
@@ -167,7 +167,7 @@
 
             <h3><label for="prompt">User Prompt:</label></h3>
             <div class="input-container">
-                <textarea id="prompt" name="prompt" maxlength="500" rows="2" cols="75">{{ prompt }}</textarea>
+                <textarea id="prompt" name="prompt" maxlength="500" rows="3" cols="75">{{ prompt }}</textarea>
                 <button type="submit">Send</button>
             </div>
         </form>
