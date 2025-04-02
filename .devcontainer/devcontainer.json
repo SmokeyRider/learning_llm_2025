@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.245.0/containers/python-3
 {
-  "name": "Learning_Python", // Name of the development container
+  "name": "Learning_LLMs", // Name of the development container
 
   // Build configuration for the container
   "build": {
@@ -21,7 +21,6 @@
           // Extensions to install automatically in the container
           "extensions": [
               "ms-python.python",       // Python language support
-              "ms-toolsai.jupyter",      // Jupyter notebook support
               "davidanson.vscode-markdownlint",
               "github.copilot",
               "ms-azuretools.vscode-docker"
