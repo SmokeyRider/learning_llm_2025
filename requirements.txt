@@ -1,0 +1,8 @@
+ipykernel
+openai
+azure-identity
+python-dotenv
+ollama
+colorama
+flask
+markdown

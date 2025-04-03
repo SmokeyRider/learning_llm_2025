@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Salty Sam says...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212; /* Dark background */
+            color: #e0e0e0; /* Light text color */
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #1e1e1e; /* Darker container background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative; /* Add relative positioning */
+        }
+        .chat-response {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #333333; /* Dark border */
+            background-color: #2a2a2a; /* Slightly lighter background */
+            padding: 10px;
+            margin-bottom: 20px;
+            position: relative; /* Add relative positioning */
+        }
+        .chat-message {
+            margin-bottom: 10px;
+        }
+        .chat-message.user {
+            color: #90caf9; /* Light blue text */
+            background-color: #1e3a5f; /* Blue background */
+            text-align: right;
+            /*border: 1px solid #90caf9; */
+            border-radius: 35px;
+            padding: 5px;
+            margin: 5px 0;
+            width: 85%; /* Set width to 85% */
+            margin-left: auto; /* Right-justify */
+        }
+        .chat-message.assistant {
+            color: #a5d6a7; /* Light green text */
+            background-color: #2e7d32; /* Green background */
+            /* border: 1px solid #a5d6a7; */
+            border-radius: 35px;
+            padding: 5px;
+            margin: 5px 0;
+            width: 85%; /* Set width to 85% */
+            margin-right: auto; /* Left-justify */
+        }
+        .chat-message.thinking {
+            color: #ffcc80; /* Light orange text */
+            background-color: #2e7d32; /* Green background */
+            font-style: italic;
+            padding: 5px;
+            margin: 5px 0;
+        }
+        .error-message {
+            color: #ef9a9a; /* Light red text */
+            background-color: #b71c1c; /* Dark red background */
+            border: 1px solid #ef9a9a;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #424242; /* Dark button background */
+            color: #e0e0e0; /* Light text */
+            border: 1px solid #616161; /* Slightly lighter border */
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #616161; /* Slightly lighter on hover */
+        }
+        .center-title {
+            text-align: center;
+            color: #ffffff; /* White title text */
+        }
+        .input-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between textarea and button */
+        }
+        .input-container textarea {
+            flex-grow: 1; /* Allow textarea to take available space */
+            background-color: #2a2a2a; /* Dark textarea background */
+            color: #e0e0e0; /* Light text */
+            border: 1px solid #424242; /* Dark border */
+            border-radius: 5px;
+        }
+        .spinner {
+            display: none; /* Hide spinner by default */
+            border: 4px solid rgba(255, 255, 255, 0.1); /* Light transparent border */
+            border-radius: 50%;
+            border-top: 4px solid #3498db; /* Blue spinner */
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 85%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Adjust for the spinner's size */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script>
+        function updateTemperatureValue(val) {
+            document.getElementById('temperature_value').innerText = val;
+        }
+
+        function scrollToBottom() {
+            window.scrollTo(0, document.body.scrollHeight);
+            var chatResponse = document.getElementById('chat-response');
+            chatResponse.scrollTop = chatResponse.scrollHeight;
+        }
+
+        function showSpinner() {
+            document.getElementById('spinner').style.display = 'block';
+        }
+
+        function hideSpinner() {
+            document.getElementById('spinner').style.display = 'none';
+        }
+
+        window.onload = scrollToBottom;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="center-title">Salty Sam says...</h1>
+        <form method="POST" onsubmit="showSpinner()">
+            <div>
+                <h3>Model Setup:</h3>
+
+                <label for="model">Model Name:</label>
+                <select id="model" name="model">
+                    {% for model in models %}
+                        <option value="{{ model }}" {% if model == selected_model %}selected{% endif %}>{{ model }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+
+                <label for="model_temperature">Model Temperature:</label>
+                <input type="range" id="model_temperature" name="model_temperature" min="{{ min_temp }}" max="{{ max_temp }}" step="{{min_temp_step}}" value="{{ model_temperature }}" oninput="updateTemperatureValue(this.value)">
+                <span id="temperature_value">{{ model_temperature }}</span>
+                <br>
+                <div class="input-container">
+                    <label for="system_prompt">System Prompt:</label>
+                    <textarea id="system_prompt" name="system_prompt" maxlength="200" rows="3" cols="70">{{ system_prompt }}</textarea>
+                </div>
+                <br>
+            </div>
+            <h3>Chat History:</h3>
+            <div id="chat-response" class="chat-response">
+                <p>{{ response|safe }}</p>
+            </div>
+
+            <h3><label for="prompt">User Prompt:</label></h3>
+            <div class="input-container">
+                <textarea id="prompt" name="prompt" maxlength="500" rows="3" cols="75">{{ prompt }}</textarea>
+                <button type="submit">Send</button>
+            </div>
+        </form>
+        <div id="spinner" class="spinner"></div> <!-- Place spinner inside container -->
+    </div>
+</body>
+</html>
