@@ -66,5 +66,6 @@
   // ]
 
   // Command to run after the container is started (runs every time the container starts)
-"postStartCommand":   "pip install --upgrade pip && pip install -r requirements.txt"
+  //"postStartCommand":   "pip install --upgrade pip && pip install -r requirements.txt"
+"postStartCommand":   "pip install -r requirements.txt"
 }
