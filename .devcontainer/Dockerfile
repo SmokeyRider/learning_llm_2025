@@ -1,3 +1,5 @@
+# Load the small Alpine image for a lightweight container
+#FROM mcr.microsoft.com/devcontainers/base:0-alpine-3.18
 FROM mcr.microsoft.com/devcontainers/python:3.12-bookworm
 
 # Install python system dependencies

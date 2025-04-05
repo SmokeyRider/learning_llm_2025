@@ -11,12 +11,13 @@
 
   // Configure tool-specific properties
   "customizations": {
+    
       // VS Code-specific configurations
       "vscode": {
           // Default settings applied when the container is created
-          "settings": {
-              "python.defaultInterpreterPath": "/usr/local/bin/python" // Path to the default Python interpreter
-          },
+          // "settings": {
+          //     "python.defaultInterpreterPath": "/usr/local/bin/python" // Path to the default Python interpreter
+          // },
 
           // Extensions to install automatically in the container
           "extensions": [
@@ -28,14 +29,19 @@
       }
     },
 
-// Uncomment to add features (e.g., Node.js, Docker CLI) to the container
-// "features": {
-//     "node": "16", // Example: Install Node.js version 16
-//     "docker-in-docker": "latest" // Example: Enable Docker-in-Docker
-// }, 
-  "features": {
-    "ghcr.io/prulloac/devcontainer-features/ollama:1": {}
-  },
+    
+    "features": {
+      "ghcr.io/prulloac/devcontainer-features/ollama:1": {}
+    },
+
+  // Uncomment to add features (e.g., Node.js, Docker CLI) to the container
+  // "features": {
+  //     "node": "16", // Example: Install Node.js version 16
+  //     "docker-in-docker": "latest" // Example: Enable Docker-in-Docker
+  // }, 
+  //   "features": {
+  //     "ghcr.io/prulloac/devcontainer-features/ollama:1": {}
+  //   },
 
   // Uncomment to forward specific ports from the container to the host
   // "forwardPorts": [8080, 3000], // Example: Forward ports 8080 and 3000
@@ -67,5 +73,6 @@
 
   // Command to run after the container is started (runs every time the container starts)
   //"postStartCommand":   "pip install --upgrade pip && pip install -r requirements.txt"
-"postStartCommand":   "pip install -r requirements.txt"
+  // "postStartCommand":   "pip install -r requirements.txt"
+
 }
