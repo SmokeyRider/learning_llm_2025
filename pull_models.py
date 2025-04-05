@@ -1,6 +1,12 @@
 import subprocess
 
-model_names: list = ["deepseek-r1", "phi3", "gemma3", "llama3.2", "mistral"]
+model_names: list = [  # Models ordered by size
+    "llama3.2", #2GB
+    "phi3",    #2.2GB
+    "gemma3", #3.3GB
+    "mistral",  #4GB
+    "deepseek-r1" #4.7GB
+    ]
 
 def pull_model(model):
     command = f'ollama pull {model}'
