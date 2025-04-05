@@ -32,7 +32,7 @@
     
     "features": {
       "ghcr.io/prulloac/devcontainer-features/ollama:1": {}
-    },
+    }
 
   // Uncomment to add features (e.g., Node.js, Docker CLI) to the container
   // "features": {
